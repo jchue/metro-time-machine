@@ -13,6 +13,8 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@fontsource-variable/open-sans": "^5.0.16",
+    "maplibre-gl": "^3.4.0",
     "vue": "^3.3.4",
     "vue-router": "^4.2.4"
   },
