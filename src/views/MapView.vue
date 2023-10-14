@@ -1,70 +1,289 @@
 <script lang="ts" setup>
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, watch } from 'vue';
 import { Map, type MapMouseEvent, NavigationControl, Popup } from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
 
+import * as aLine19900714 from '@/geojson/a-line-1990-07-14.json';
+import * as aLine199009 from '@/geojson/a-line-1990-09.json';
+import * as aLine199102 from '@/geojson/a-line-1991-02.json';
 import * as aLine from '@/geojson/a-line.json';
+import * as bdLine19930130 from '@/geojson/bd-line-1993-01-30.json';
+import * as bdLine19960713 from '@/geojson/bd-line-1996-07-13.json';
+import * as bLine19990612 from '@/geojson/b-line-1999-06-12.json';
 import * as bLine from '@/geojson/b-line.json';
 import * as cLine from '@/geojson/c-line.json';
 import * as dLine from '@/geojson/d-line.json';
+import * as eLine20120428 from '@/geojson/e-line-2012-04-28.json';
+import * as eLine20120620 from '@/geojson/e-line-2012-06-20.json';
+import * as eLine20160520 from '@/geojson/e-line-2016-05-20.json';
 import * as eLine from '@/geojson/e-line.json';
 import * as kLine from '@/geojson/k-line-2022.json';
+import * as lLine20030726 from '@/geojson/l-line-2003-07-26.json';
+import * as lLine20091115 from '@/geojson/l-line-2009-11-15.json';
+import * as lLine20160305 from '@/geojson/l-line-2016-03-05.json';
 
 const mapTilerKey = import.meta.env.VITE_MAPTILER_KEY;
 
-const lines = [
+const currentDate = (new Date()).toISOString();
+const activeDate = ref(currentDate);
+
+function setActiveDate(newDate: string): void {
+  activeDate.value = newDate;
+}
+
+function isLineActive(line: Line): boolean {
+  return new Date(line.startDate) <= new Date(activeDate.value) && (new Date(activeDate.value) <= new Date(line.endDate) || !line.endDate);
+}
+
+interface Line {
+  id: string;
+  startDate: string;
+  endDate: string;
+  geoJSON: Object;
+  color: string;
+  label: string;
+  type: 'light-rail' | 'heavy-rail';
+}
+
+const lines: Line[] = [
+  {
+    id: 'a-line-1990-07-14',
+    startDate: '1990-07-14',
+    endDate: '1990-08-31',
+    geoJSON: aLine19900714,
+    color: '#0288d1',
+    label: 'Metro Blue Line',
+    type: 'light-rail',
+  },
+  {
+    id: 'a-line-1990-09',
+    startDate: '1990-09-01',
+    endDate: '1991-02-13',
+    geoJSON: aLine199009,
+    color: '#0288d1',
+    label: 'Metro Blue Line',
+    type: 'light-rail',
+  },
+  {
+    id: 'a-line-1991-02',
+    startDate: '1991-02-14',
+    endDate: '2023-06-15',
+    geoJSON: aLine199102,
+    color: '#0288d1',
+    label: 'Metro Blue Line',
+    type: 'light-rail',
+  },
   {
     id: 'a-line',
-    startDate: '',
+    startDate: '2023-06-16',
     endDate: '',
     geoJSON: aLine,
     color: '#0072BC',
     label: 'Metro A Line',
+    type: 'light-rail',
+  },
+  {
+    id: 'bd-line-1993-01-30',
+    startDate: '1993-01-30',
+    endDate: '1996-07-12',
+    geoJSON: bdLine19930130,
+    color: '#EB131B',
+    label: 'Metro Red Line',
+    type: 'heavy-rail',
+  },
+  {
+    id: 'b-line-1999-06-12',
+    startDate: '1999-06-12',
+    endDate: '2000-06-23',
+    geoJSON: bLine19990612,
+    color: '#EB131B',
+    label: 'Metro Red Line',
+    type: 'heavy-rail',
   },
   {
     id: 'b-line',
-    startDate: '',
+    startDate: '2000-06-24',
     endDate: '',
     geoJSON: bLine,
     color: '#EB131B',
     label: 'Metro B Line',
+    type: 'heavy-rail',
+  },
+  {
+    id: 'bd-line',
+    startDate: '1996-07-13',
+    endDate: '2005-12-31',
+    geoJSON: dLine,
+    color: '#EB131B',
+    label: 'Metro Red Line',
+    type: 'heavy-rail',
   },
   {
     id: 'c-line',
-    startDate: '',
+    startDate: '1995-08-12',
     endDate: '',
     geoJSON: cLine,
     color: '#58A738',
     label: 'Metro C Line',
+    type: 'light-rail',
   },
   {
     id: 'd-line',
-    startDate: '',
+    startDate: '2006-01-01',
     endDate: '',
     geoJSON: dLine,
     color: '#A05DA5',
     label: 'Metro D Line',
+    type: 'heavy-rail',
+  },
+  {
+    id: 'e-line-2012-04-28',
+    startDate: '2012-04-28',
+    endDate: '2016-05-18',
+    geoJSON: eLine20120428,
+    color: '#0097a7',
+    label: 'Metro Expo Line',
+    type: 'light-rail',
+  },
+  {
+    id: 'e-line-2012-06-20',
+    startDate: '2012-06-20',
+    endDate: '2016-05-19',
+    geoJSON: eLine20120620,
+    color: '#0097a7',
+    label: 'Metro Expo Line',
+    type: 'light-rail',
+  },
+  {
+    id: 'e-line-2016-05-20',
+    startDate: '2016-05-20',
+    endDate: '2023-06-15',
+    geoJSON: eLine20160520,
+    color: '#0097a7',
+    label: 'Metro Expo Line',
+    type: 'light-rail',
   },
   {
     id: 'e-line',
-    startDate: '',
+    startDate: '2023-06-16',
     endDate: '',
     geoJSON: eLine,
     color: '#FDB913',
     label: 'Metro E Line',
+    type: 'light-rail',
   },
   {
     id: 'k-line',
-    startDate: '',
+    startDate: '2022-10-07',
     endDate: '',
     geoJSON: kLine,
     color: '#E56DB1',
     label: 'Metro K Line',
+    type: 'light-rail',
+  },
+  {
+    id: 'l-line-2003-07-26',
+    startDate: '2003-07-26',
+    endDate: '2009-11-14',
+    geoJSON: lLine20030726,
+    color: '#f9a825',
+    label: 'Metro Gold Line',
+    type: 'light-rail',
+  },
+  {
+    id: 'l-line-2009-11-15',
+    startDate: '2009-11-15',
+    endDate: '2016-03-04',
+    geoJSON: lLine20091115,
+    color: '#f9a825',
+    label: 'Metro Gold Line',
+    type: 'light-rail',
+  },
+  {
+    id: 'l-line-2016-03-05',
+    startDate: '2016-03-05',
+    endDate: '2023-06-15',
+    geoJSON: lLine20160305,
+    color: '#f9a825',
+    label: 'Metro L Line',
+    type: 'light-rail',
   },
 ];
 
+/* Extract dates */
+let changeDates = lines.map((line) => {
+  return line.startDate;
+})
+
+/* Get unique dates */
+changeDates = [...new Set(changeDates)];;
+
+/* Sort dates */
+changeDates.sort((a, b) => {
+  if (a < b) {
+    return -1;
+  } else if (a > b) {
+    return 1;
+  }
+
+  return 0;
+});
+
+watch(activeDate, () => {
+  lines.forEach((line) => {
+    map.value.setLayoutProperty(line.id, 'visibility', isLineActive(line) ? 'visible' : 'none');
+  });
+});
+
 const map = ref();
 const mapContainer = ref();
+
+function addLines() {
+  lines.forEach((line) => {
+    map.value.addSource(line.id, {
+      type: 'geojson',
+      data: line.geoJSON,
+    });
+
+    map.value.addLayer({
+      id: line.id,
+      type: 'line',
+      source: line.id,
+      layout: {
+        'line-join': 'round',
+        'line-cap': 'round',
+        'visibility': isLineActive(line) ? 'visible' : 'none',
+      },
+      paint: {
+        'line-color': line.color,
+        'line-width': 3,
+      },
+    });
+
+    map.value.on('mouseover', line.id, (e: MapMouseEvent) => {
+      // Bring to front
+      map.value.moveLayer(line.id);
+
+      map.value.getCanvas().style.cursor = 'pointer';
+      map.value.setPaintProperty(line.id, 'line-width', 6);
+
+      popup.setHTML(line.label).setLngLat(e.lngLat).addTo(map.value);
+      popup.trackPointer();
+    });
+
+    map.value.on('mouseleave', line.id, () => {
+      map.value.getCanvas().style.cursor = 'grab';
+      map.value.setPaintProperty(line.id, 'line-width', 3);
+      popup.remove();
+    });
+  });
+
+    // Create a popup, but don't add it to the map yet.
+    const popup = new Popup({
+      closeButton: false,
+      closeOnClick: false,
+    });
+}
 
 onMounted(() => {
   map.value = new Map({
@@ -78,58 +297,31 @@ onMounted(() => {
   map.value.on('load', () => {
     map.value.addControl(new NavigationControl(), 'top-right');
 
-    lines.forEach((line) => {
-      map.value.addSource(line.id, {
-        type: 'geojson',
-        data: line.geoJSON,
-      });
-
-      map.value.addLayer({
-        id: line.id,
-        type: 'line',
-        source: line.id,
-        layout: {
-          'line-join': 'round',
-          'line-cap': 'round',
-        },
-        paint: {
-          'line-color': line.color,
-          'line-width': 3,
-        },
-      });
-
-      map.value.on('mouseover', line.id, (e: MapMouseEvent) => {
-        // Bring to front
-        map.value.moveLayer(line.id);
-
-        map.value.getCanvas().style.cursor = 'pointer';
-        map.value.setPaintProperty(line.id, 'line-width', 6);
-
-        popup.setHTML(line.label).setLngLat(e.lngLat).addTo(map.value);
-        popup.trackPointer();
-      });
-
-      map.value.on('mouseleave', line.id, () => {
-        map.value.getCanvas().style.cursor = 'grab';
-        map.value.setPaintProperty(line.id, 'line-width', 3);
-        popup.remove();
-      });
-    });
-
-    // Create a popup, but don't add it to the map yet.
-    const popup = new Popup({
-      closeButton: false,
-      closeOnClick: false,
-    });
+    addLines();
   });
 });
 </script>
 
 <template>
+  <ul className="timeline">
+    <li v-for="date in changeDates" v-bind:key="date" v-on:click="setActiveDate(date)" v-bind:style="{ color: date === activeDate ? 'hsla(160, 100%, 37%, 1)' : ''}">
+      {{ date }}
+    </li>
+  </ul>
   <div class="map" ref="mapContainer"></div>
 </template>
 
 <style>
+.timeline li {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+}
+
+.timeline li:hover {
+  color: hsla(160, 100%, 37%, 1);
+  cursor: pointer;
+}
+
 .map {
   height: 100%;
 }
