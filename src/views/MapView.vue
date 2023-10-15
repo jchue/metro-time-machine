@@ -21,6 +21,11 @@ import * as kLine from '@/geojson/k-line-2022.json';
 import * as lLine20030726 from '@/geojson/l-line-2003-07-26.json';
 import * as lLine20091115 from '@/geojson/l-line-2009-11-15.json';
 import * as lLine20160305 from '@/geojson/l-line-2016-03-05.json';
+import * as gLine20051029 from '@/geojson/g-line-2005-10-29.json';
+import * as gLine20120630 from '@/geojson/g-line-2012-06-30.json';
+import * as gLine2018 from '@/geojson/g-line-2018.json';
+import * as jLine20091213 from '@/geojson/j-line-2009-12-13.json';
+import * as jLine201512 from '@/geojson/j-line-2015-12.json';
 
 const mapTilerKey = import.meta.env.VITE_MAPTILER_KEY;
 
@@ -45,7 +50,7 @@ interface Line {
   geoJSON: Object;
   color: string;
   label: string;
-  type: 'light-rail' | 'heavy-rail';
+  type: 'light-rail' | 'heavy-rail' | 'brt';
 }
 
 const lines: Line[] = [
@@ -210,6 +215,51 @@ const lines: Line[] = [
     color: '#f9a825',
     label: 'Metro L Line',
     type: 'light-rail',
+  },
+  {
+    id: 'g-line-2005-10-29',
+    startDate: '2005-10-29',
+    endDate: '2012-06-29',
+    geoJSON: gLine20051029,
+    color: '#fc4c02',
+    label: 'Metro G Line',
+    type: 'brt',
+  },
+  {
+    id: 'g-line-2012-06-30',
+    startDate: '2012-06-30',
+    endDate: '2017-12-31',
+    geoJSON: gLine20120630,
+    color: '#fc4c02',
+    label: 'Metro G Line',
+    type: 'brt',
+  },
+  {
+    id: 'g-line-2018',
+    startDate: '2018-01-01',
+    endDate: '',
+    geoJSON: gLine2018,
+    color: '#fc4c02',
+    label: 'Metro G Line',
+    type: 'brt',
+  },
+  {
+    id: 'j-line-2009-12-13',
+    startDate: '2009-12-13',
+    endDate: '',
+    geoJSON: jLine20091213,
+    color: '#adB8bf',
+    label: 'Metro J Line',
+    type: 'brt',
+  },
+  {
+    id: 'j-line-201512',
+    startDate: '2015-12-01',
+    endDate: '',
+    geoJSON: jLine201512,
+    color: '#adB8bf',
+    label: 'Metro J Line',
+    type: 'brt',
   },
 ];
 
