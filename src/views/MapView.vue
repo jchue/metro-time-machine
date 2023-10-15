@@ -24,7 +24,7 @@ import * as lLine20160305 from '@/geojson/l-line-2016-03-05.json';
 
 const mapTilerKey = import.meta.env.VITE_MAPTILER_KEY;
 
-const currentDate = (new Date()).toISOString();
+const currentDate = new Date().toISOString();
 const activeDate = ref(currentDate);
 
 function setActiveDate(newDate: string): void {
@@ -32,7 +32,10 @@ function setActiveDate(newDate: string): void {
 }
 
 function isLineActive(line: Line): boolean {
-  return new Date(line.startDate) <= new Date(activeDate.value) && (new Date(activeDate.value) <= new Date(line.endDate) || !line.endDate);
+  return (
+    new Date(line.startDate) <= new Date(activeDate.value) &&
+    (new Date(activeDate.value) <= new Date(line.endDate) || !line.endDate)
+  );
 }
 
 interface Line {
@@ -213,10 +216,10 @@ const lines: Line[] = [
 /* Extract dates */
 let changeDates = lines.map((line) => {
   return line.startDate;
-})
+});
 
 /* Get unique dates */
-changeDates = [...new Set(changeDates)];;
+changeDates = [...new Set(changeDates)];
 
 /* Sort dates */
 changeDates.sort((a, b) => {
@@ -227,6 +230,24 @@ changeDates.sort((a, b) => {
   }
 
   return 0;
+});
+
+const changeIndex = ref(0);
+
+function setChangeIndex(newIndex: number): void {
+  if (0 <= newIndex && newIndex < changeDates.length) {
+    changeIndex.value = newIndex;
+
+    const changeDates = document.getElementById('timeline')?.children;
+
+    if (changeDates) {
+      changeDates[newIndex].scrollIntoView({ behavior: 'smooth', inline: 'center' });
+    }
+  }
+}
+
+watch(changeIndex, () => {
+  setActiveDate(changeDates[changeIndex.value]);
 });
 
 watch(activeDate, () => {
@@ -252,7 +273,7 @@ function addLines() {
       layout: {
         'line-join': 'round',
         'line-cap': 'round',
-        'visibility': isLineActive(line) ? 'visible' : 'none',
+        visibility: isLineActive(line) ? 'visible' : 'none',
       },
       paint: {
         'line-color': line.color,
@@ -278,11 +299,11 @@ function addLines() {
     });
   });
 
-    // Create a popup, but don't add it to the map yet.
-    const popup = new Popup({
-      closeButton: false,
-      closeOnClick: false,
-    });
+  // Create a popup, but don't add it to the map yet.
+  const popup = new Popup({
+    closeButton: false,
+    closeOnClick: false,
+  });
 }
 
 onMounted(() => {
@@ -299,31 +320,87 @@ onMounted(() => {
 
     addLines();
   });
+
+  setChangeIndex(changeDates.length - 1);
 });
 </script>
 
 <template>
-  <ul className="timeline">
-    <li v-for="date in changeDates" v-bind:key="date" v-on:click="setActiveDate(date)" v-bind:style="{ color: date === activeDate ? 'hsla(160, 100%, 37%, 1)' : ''}">
-      {{ date }}
-    </li>
-  </ul>
-  <div class="map" ref="mapContainer"></div>
+  <div class="map">
+    <nav>
+      <button v-on:click="setChangeIndex(changeIndex - 1)">Previous</button>
+
+      <ul id="timeline">
+        <li
+          v-for="(date, index) in changeDates"
+          v-bind:key="date"
+          v-on:click="
+            setActiveDate(date);
+            setChangeIndex(index);
+          "
+          v-bind:style="{ color: date === activeDate ? 'hsla(160, 100%, 37%, 1)' : '' }"
+        >
+          {{ date }}
+        </li>
+      </ul>
+
+      <button v-on:click="setChangeIndex(changeIndex + 1)">Next</button>
+    </nav>
+
+    <div ref="mapContainer"></div>
+  </div>
 </template>
 
-<style>
-.timeline li {
-  display: inline-block;
-  padding: 0.5rem 1rem;
+<style scoped>
+.map {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
-.timeline li:hover {
+nav {
+  align-items: center;
+  display: flex;
+}
+
+button {
+  background-color: var(--color-text);
+  border: none;
+  color: var(--color-background);
+  cursor: pointer;
+  display: inline-block;
+  padding: 1rem 1.25rem;
+}
+
+button:hover {
+  background-color: var(--vt-c-text-light-2);
+}
+
+button:active {
+  background-color: var(--color-text);
+}
+
+#timeline {
+  display: inline-block;
+  overflow-x: scroll;
+  padding: 0.5rem 0;
+  white-space: nowrap;
+}
+
+#timeline li {
+  display: inline-block;
+  padding: 1rem 1rem;
+}
+
+#timeline li:hover {
   color: hsla(160, 100%, 37%, 1);
   cursor: pointer;
 }
+</style>
 
-.map {
-  height: 100%;
+<style>
+.maplibregl-map {
+  flex-grow: 1;
 }
 
 .maplibregl-popup-content {
