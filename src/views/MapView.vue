@@ -8,7 +8,6 @@ import * as aLine199009 from '@/geojson/a-line-1990-09.json';
 import * as aLine199102 from '@/geojson/a-line-1991-02.json';
 import * as aLine from '@/geojson/a-line.json';
 import * as bdLine19930130 from '@/geojson/bd-line-1993-01-30.json';
-import * as bdLine19960713 from '@/geojson/bd-line-1996-07-13.json';
 import * as bLine19990612 from '@/geojson/b-line-1999-06-12.json';
 import * as bLine from '@/geojson/b-line.json';
 import * as cLine from '@/geojson/c-line.json';
@@ -263,30 +262,127 @@ const lines: Line[] = [
   },
 ];
 
-/* Extract dates */
-let changeDates = lines.map((line) => {
-  return line.startDate;
-});
-
-/* Get unique dates */
-changeDates = [...new Set(changeDates)];
-
-/* Sort dates */
-changeDates.sort((a, b) => {
-  if (a < b) {
+const events = [
+  {
+    date: '1990-07-14',
+    caption: 'Blue Line opens',
+  },
+  {
+    date: '1990-09-01',
+    caption: 'Blue Line extended to a loop through downtown Long Beach',
+  },
+  {
+    date: '1991-02-14',
+    caption: 'Blue Line extended from Pico to 7th Street/Metro Center',
+  },
+  {
+    date: '1993-01-30',
+    caption:
+      'Red Line MOS-1 segment, consisting of five stations from Union Station to Westlake/MacArthur Park, opens',
+  },
+  {
+    date: '1995-08-12',
+    caption: 'Green Line opens',
+  },
+  {
+    date: '1996-07-13',
+    caption:
+      'Red Line MOS-2A segment, consisting of three new stations between Westlake/MacArthur Park and Wilshire/Western, opens',
+  },
+  {
+    date: '1999-06-12',
+    caption:
+      'Red Line MOS-2B segment, consisting of five stations from Wilshire/Vermont to Hollywood/Vine, opens',
+  },
+  {
+    date: '2000-06-24',
+    caption: 'Red Line MOS-3 segment, extending from Hollywood/Vine to  North Hollywood, opens',
+  },
+  {
+    date: '2003-07-26',
+    caption: 'Gold Line opens between Union Station and Sierra Madre Villa',
+  },
+  {
+    date: '2005-10-29',
+    caption: 'Orange Line BRT opens between North Hollywood and Warner Center',
+  },
+  {
+    date: '2006-01-01',
+    caption: 'Red Line branch to Wilshire/Western designated as the "Purple Line"',
+  },
+  {
+    date: '2009-11-15',
+    caption:
+      'First phase of the Gold Line Eastside Extension, extending the Gold Line from Union Station to Atlantic Boulevard near Monterey Park with eight new stations, opens',
+  },
+  {
+    date: '2009-12-13',
+    caption:
+      'Silver Line BRT opens along the El Monte Busway and the Harbor Transitway between Harbor Gateway Transit Center and El Monte station',
+  },
+  {
+    date: '2012-04-28',
+    caption:
+      'Most stations for the first phase of the Expo Line, an 8.6-mile (13.8 km) section between Downtown Los Angeles and Culver City, opens',
+  },
+  {
+    date: '2012-06-20',
+    caption:
+      'Remaining stations for the first phase of the Expo Line open, comprised of Culver City as well as the infill Farmdale station between Expo/La Brea and Expo/Crenshaw',
+  },
+  {
+    date: '2012-06-30',
+    caption:
+      'Orange Line BRT Chatsworth Extension, connecting Canoga northward to the Metrolink station in Chatsworth, opens',
+  },
+  {
+    date: '2015-12-01',
+    caption:
+      'Metro Express 450X bus combines into Silver Line BRT, eventually leading into a service pattern that serves San Pedro',
+  },
+  {
+    date: '2016-03-05',
+    caption:
+      'Gold Line Foothill Extension Phase 2A, running from Sierra Madre Villa station in Pasadena to APU/Citrus College station in Azusa, opens',
+  },
+  {
+    date: '2016-05-20',
+    caption: 'Expo Phase II between Culver City and Santa Monica opens',
+  },
+  {
+    date: '2018-01-01',
+    caption:
+      'Warner Center removed from the Orange Line, with a frequent local shuttle service connecting it to Canoga',
+  },
+  {
+    date: '2019-11-02',
+    caption: 'Metro lines begin transition from colors to letters',
+  },
+  {
+    date: '2022-10-07',
+    caption:
+      'K Line initial segment, from the E Line at Expo/Crenshaw to Westchester/Veterans, opens',
+  },
+  {
+    date: '2023-06-16',
+    caption:
+      'Regional Connector in downtown is completed, connecting the A, E, and L Lines into two routes, the north-to-south A Line and the east-to-west A Line',
+  },
+].sort((a, b) => {
+  if (a.date < b.date) {
     return -1;
-  } else if (a > b) {
+  } else if (a.date > b.date) {
     return 1;
   }
 
   return 0;
 });
 
-const changeIndex = ref(0);
+const eventIndex = ref(0);
 
-function setChangeIndex(newIndex: number): void {
-  if (0 <= newIndex && newIndex < changeDates.length) {
-    changeIndex.value = newIndex;
+function setEventIndex(newIndex: number): void {
+  if (0 <= newIndex && newIndex < events.length) {
+    eventIndex.value = newIndex;
 
     const changeDates = document.getElementById('timeline')?.children;
 
@@ -296,14 +392,8 @@ function setChangeIndex(newIndex: number): void {
   }
 }
 
-watch(changeIndex, () => {
-  setActiveDate(changeDates[changeIndex.value]);
-});
-
-watch(activeDate, () => {
-  lines.forEach((line) => {
-    map.value.setLayoutProperty(line.id, 'visibility', isLineActive(line) ? 'visible' : 'none');
-  });
+watch(eventIndex, () => {
+  setActiveDate(events[eventIndex.value].date);
 });
 
 const map = ref();
@@ -369,33 +459,41 @@ onMounted(() => {
     map.value.addControl(new NavigationControl(), 'top-right');
 
     addLines();
+
+    watch(activeDate, () => {
+      lines.forEach((line) => {
+        map.value.setLayoutProperty(line.id, 'visibility', isLineActive(line) ? 'visible' : 'none');
+      });
+    });
   });
 
-  setChangeIndex(changeDates.length - 1);
+  setEventIndex(events.length - 1);
 });
 </script>
 
 <template>
   <div class="map">
     <nav>
-      <button v-on:click="setChangeIndex(changeIndex - 1)">Previous</button>
+      <button v-on:click="setEventIndex(eventIndex - 1)">Previous</button>
 
       <ul id="timeline">
         <li
-          v-for="(date, index) in changeDates"
-          v-bind:key="date"
+          v-for="(event, index) in events"
+          v-bind:key="event.date"
           v-on:click="
-            setActiveDate(date);
-            setChangeIndex(index);
+            setActiveDate(event.date);
+            setEventIndex(index);
           "
-          v-bind:style="{ color: date === activeDate ? 'hsla(160, 100%, 37%, 1)' : '' }"
+          v-bind:style="{ color: event.date === activeDate ? 'hsla(160, 100%, 37%, 1)' : '' }"
         >
-          {{ date }}
+          {{ new Date(event.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) }}
         </li>
       </ul>
 
-      <button v-on:click="setChangeIndex(changeIndex + 1)">Next</button>
+      <button v-on:click="setEventIndex(eventIndex + 1)">Next</button>
     </nav>
+
+    <div class="caption">{{ events[eventIndex].caption }}</div>
 
     <div ref="mapContainer"></div>
   </div>
@@ -445,6 +543,11 @@ button:active {
 #timeline li:hover {
   color: hsla(160, 100%, 37%, 1);
   cursor: pointer;
+}
+
+.caption {
+  padding: 0.5rem 0;
+  text-align: center;
 }
 </style>
 
