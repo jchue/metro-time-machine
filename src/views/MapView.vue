@@ -78,7 +78,8 @@ onMounted(() => {
         },
         paint: {
           'line-color': line.color,
-          'line-width': 3,
+          'line-width': line.confirmed ? 3 : 2,
+          'line-dasharray': line.confirmed ? [1, 0] : [1, 3],
         },
       });
 
@@ -95,7 +96,7 @@ onMounted(() => {
 
       map.value.on('mouseleave', line.id, () => {
         map.value.getCanvas().style.cursor = 'grab';
-        map.value.setPaintProperty(line.id, 'line-width', 3);
+        map.value.setPaintProperty(line.id, 'line-width', line.confirmed ? 3 : 2);
         popup.remove();
       });
     });
@@ -127,7 +128,7 @@ onMounted(() => {
           v-bind:style="{ color: event.date === activeDate ? 'hsla(160, 100%, 37%, 1)' : '' }"
         >
           {{
-            new Date(event.date).toLocaleDateString('en-US', {
+            event.label || new Date(event.date).toLocaleDateString('en-US', {
               year: 'numeric',
               month: 'long',
               day: 'numeric',
