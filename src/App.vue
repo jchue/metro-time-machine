@@ -4,12 +4,12 @@ import { RouterLink, RouterView } from 'vue-router'
 
 <template>
   <header>
-    <RouterLink to="/" id="site-title">Metro Map</RouterLink>
+    <RouterLink to="/" id="site-title">LA Metro Time Machine</RouterLink>
 
     <nav>
       <RouterLink to="/">Home</RouterLink>
-      <RouterLink to="/about">About</RouterLink>
       <RouterLink to="/map">Map</RouterLink>
+      <RouterLink to="/about">About</RouterLink>
     </nav>
   </header>
 
@@ -25,6 +25,7 @@ header {
 
 #site-title {
   color: var(--color-text);
+  font-size: 15px;
   font-weight: bold;
   text-transform: uppercase;
 }
@@ -68,8 +69,8 @@ nav a.router-link-exact-active:hover {
   }
 
   main {
+    flex-grow: 1;
     margin-bottom: 2rem;
-    height: 100%;
   }
 }
 </style>

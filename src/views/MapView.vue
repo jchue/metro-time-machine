@@ -108,14 +108,17 @@ onMounted(() => {
     });
   });
 
-  setEventIndex(events.length - 1);
+  /* Get event as of current date */
+  let i = events.length - 1;
+  for (i; currentDate < events[i].date; i--)
+  setEventIndex(i - 1);
 });
 </script>
 
 <template>
   <div class="map">
     <nav>
-      <button v-on:click="setEventIndex(eventIndex - 1)">Previous</button>
+      <button v-on:click="setEventIndex(eventIndex - 1)">←</button>
 
       <ul id="timeline">
         <li
@@ -125,7 +128,7 @@ onMounted(() => {
             setActiveDate(event.date);
             setEventIndex(index);
           "
-          v-bind:style="{ color: event.date === activeDate ? 'hsla(160, 100%, 37%, 1)' : '' }"
+          v-bind:class="{ active: event.date === activeDate }"
         >
           {{
             event.label || new Date(event.date).toLocaleDateString('en-US', {
@@ -137,7 +140,7 @@ onMounted(() => {
         </li>
       </ul>
 
-      <button v-on:click="setEventIndex(eventIndex + 1)">Next</button>
+      <button v-on:click="setEventIndex(eventIndex + 1)">→</button>
     </nav>
 
     <div class="caption">{{ events[eventIndex].caption }}</div>
@@ -164,7 +167,18 @@ button {
   color: var(--color-background);
   cursor: pointer;
   display: inline-block;
-  padding: 1rem 1.25rem;
+  font-size: 1rem;
+  padding: 0.5rem 1.25rem;
+}
+
+button:first-child {
+  border-radius: 0.5rem 0 0 0.5rem;
+  box-shadow: 5px 0 5px -4px rgba(0, 0, 0, 0.5);
+}
+
+button:last-child {
+  border-radius: 0 0.5rem 0.5rem 0;
+  box-shadow: -5px 0 5px -4px rgba(0, 0, 0, 0.5);
 }
 
 button:hover {
@@ -178,13 +192,17 @@ button:active {
 #timeline {
   display: inline-block;
   overflow-x: scroll;
+  margin: 0;
   padding: 0.5rem 0;
   white-space: nowrap;
 }
 
 #timeline li {
   display: inline-block;
-  padding: 1rem 1rem;
+  font-size: 15px;
+  line-height: 1;
+  margin: 0.5rem 1rem;
+  padding: 0.25rem 0.5rem;
 }
 
 #timeline li:hover {
@@ -192,7 +210,21 @@ button:active {
   cursor: pointer;
 }
 
+#timeline li.active {
+  border: 2px solid var(--color-text);
+  border-radius: 0.25rem;
+  font-weight: bold;
+}
+
+#timeline li.active:hover {
+  color: var(--color-text);
+  cursor: default;
+}
+
 .caption {
+  font-size: 15px;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
   padding: 0.5rem 0;
   text-align: center;
 }

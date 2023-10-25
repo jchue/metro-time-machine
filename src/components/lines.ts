@@ -37,7 +37,8 @@ import * as sepulvedaTransitCorridor from '@/geojson/sepulveda-transit-corridor.
 import * as sepulvedaTransitCorridorPhase2 from '@/geojson/sepulveda-transit-corridor-phase-2.json';
 import * as vermontTransitCorridor from '@/geojson/vermont-transit-corridor.json';
 import * as vermontTransitCorridorSouthBayExtension from '@/geojson/vermont-transit-corridor-south-bay-extension.json';
-import * as westSantaAnaBranchTransitCorridor from '@/geojson/west-santa-ana-branch-transit-corridor.json';
+import * as westSantaAnaBranchTransitCorridorLPA from '@/geojson/west-santa-ana-branch-transit-corridor-lpa.json';
+import * as westSantaAnaBranchTransitCorridorStudy from '@/geojson/west-santa-ana-branch-transit-corridor-study.json';
 
 export interface Line {
   id: string;
@@ -458,12 +459,22 @@ export const lines: Line[] = [
     confirmed: false,
   },
   {
-    id: 'wsab',
+    id: 'wsab-lpa',
     startDate: '2035-01-01',
     endDate: '',
-    geoJSON: westSantaAnaBranchTransitCorridor,
+    geoJSON: westSantaAnaBranchTransitCorridorLPA,
     color: '#b585b7',
     label: 'West Santa Ana Branch Transit Corridor',
+    type: 'light-rail',
+    confirmed: false,
+  },
+  {
+    id: 'wsab-study',
+    startDate: '3000-01-01',
+    endDate: '',
+    geoJSON: westSantaAnaBranchTransitCorridorStudy,
+    color: '#b585b7',
+    label: 'West Santa Ana Branch Transit Corridor Slauson/A Line to Union Station Study',
     type: 'light-rail',
     confirmed: false,
   },
@@ -578,7 +589,7 @@ export const events: Event[] = [
   {
     date: '2024-01-01',
     label: '2024',
-    caption: 'Purple (D Line) Extension Transit Project Section 1 from Wilshire/Western to Wilshire/La Cienega',
+    caption: 'Purple (D Line) Extension Transit Project Section 1 from Wilshire/Western to Wilshire/La Cienega, remainder of K line opens, including a connection with the LAX People Mover as well as the former C Line segment to Redondo Beach',
   },
   {
     date: '2025-01-01',
@@ -608,7 +619,7 @@ export const events: Event[] = [
   {
     date: '2030-01-02',
     label: '2030-2033',
-    caption: 'C Line Extension to Torrance',
+    caption: 'C/K Line Extension to Torrance',
   },
   {
     date: '2033-01-01',
@@ -632,8 +643,8 @@ export const events: Event[] = [
   },
   {
     date: '3000-01-01',
-    label: 'Other',
-    caption: 'Vermont Transit Corridor South Bay Extension',
+    label: 'TBD',
+    caption: 'Vermont Transit Corridor South Bay Extension, West Santa Ana Branch Transit Corridor Slauson/A Line to Union Station study',
   },
 ].sort((a, b) => {
   if (a.date < b.date) {
