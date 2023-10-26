@@ -12,10 +12,13 @@ main {
   background-color: var(--color-background-mute);
   display: flex;
   flex-direction: column;
-  font-size: 4rem;
+  font-size: 2rem;
   font-weight: 700;
   height: 100%;
   justify-content: center;
+  line-height: 0.9;
+  padding: 1rem;
+  text-align: center;
 }
 
 .button {
@@ -28,7 +31,8 @@ main {
   display: inline-block;
   font-size: 1rem;
   line-height: 1;
-  padding: 1rem 1.25rem;
+  margin-top: 1rem;
+  padding: 0.75rem 1rem;
 }
 
 .button:hover {
@@ -37,5 +41,15 @@ main {
 
 .button:active {
   background-color: var(--color-text);
+}
+
+@media (min-width: 640px) {
+  main {
+    font-size: 4rem;
+  }
+
+  .button {
+    padding: 1rem 1.25rem;
+  }
 }
 </style>

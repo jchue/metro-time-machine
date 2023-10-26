@@ -3,12 +3,11 @@
 #app {
   display: flex;
   flex-direction: column;
+  font-weight: normal;
   height: 100vh;
   max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
-
-  font-weight: normal;
+  padding: 1.5rem;
 }
 
 a,
@@ -24,13 +23,8 @@ a,
   }
 }
 
-@media (min-width: 1024px) {
-  body {
-    place-items: center;
-  }
-
+@media (min-width: 640px) {
   #app {
-    grid-template-columns: 1fr 1fr;
-    padding: 0 2rem;
+    padding: 2rem;
   }
 }
