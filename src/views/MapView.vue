@@ -62,9 +62,27 @@ onMounted(() => {
     map.value.addControl(new NavigationControl(), 'top-right');
 
     lines.forEach((line) => {
+      let data;
+
+      if (Array.isArray(line.geoJSON)) {
+        /* If multiple files are passed, merge the features */
+        const features = line.geoJSON.map((file) => {
+          return file.features;
+        }).reduce((pre, cur) => {
+          return pre.concat(cur);
+        });
+
+        data = {
+          type: "FeatureCollection",
+          features,
+        };
+      } else {
+        data = line.geoJSON;
+      }
+
       map.value.addSource(line.id, {
         type: 'geojson',
-        data: line.geoJSON,
+        data,
       });
 
       map.value.addLayer({
