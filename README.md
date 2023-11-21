@@ -2,6 +2,8 @@
 
 This is a chronological map of the Los Angeles Metro rapid transit system. It provides an illustration of how the system has grown and evolved over the years.
 
+![LA Metro system map](public/map-screenshot.png)
+
 ## Project Setup
 
 ```sh
