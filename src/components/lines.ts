@@ -5,11 +5,11 @@ import * as aLine from '@/geojson/a-line.json';
 import * as aLine2025 from '@/geojson/a-line-2025.json';
 import * as aLine2028 from '@/geojson/a-line-2028.json';
 import * as bdLine19930130 from '@/geojson/bd-line-1993-01-30.json';
+import * as dLine19960713 from '@/geojson/d-line-1996-07-13.json';
 import * as bLine19990612 from '@/geojson/b-line-1999-06-12.json';
-import * as bLine from '@/geojson/b-line.json';
+import * as bLine20000624 from '@/geojson/b-line-2000-06-24.json';
 import * as cLine from '@/geojson/c-line.json';
 import * as cLineFuture from '@/geojson/c-line-2024.json';
-import * as dLine from '@/geojson/d-line.json';
 import * as dLine2024 from '@/geojson/d-line-2024.json';
 import * as dLine2025 from '@/geojson/d-line-2025.json';
 import * as dLine2027 from '@/geojson/d-line-2027.json';
@@ -39,6 +39,7 @@ import * as vermontTransitCorridor from '@/geojson/vermont-transit-corridor.json
 import * as vermontTransitCorridorSouthBayExtension from '@/geojson/vermont-transit-corridor-south-bay-extension.json';
 import * as westSantaAnaBranchTransitCorridorLPA from '@/geojson/west-santa-ana-branch-transit-corridor-lpa.json';
 import * as westSantaAnaBranchTransitCorridorStudy from '@/geojson/west-santa-ana-branch-transit-corridor-study.json';
+import * as artsDistrict6thStreetStation from '@/geojson/arts-district-6th-street-station.json';
 
 export interface Line {
   id: string;
@@ -59,7 +60,7 @@ interface Event {
 
 export const lines: Line[] = [
   {
-    id: 'a-line-1990-07-14',
+    id: 'blue-line-1990-07-14',
     startDate: '1990-07-14',
     endDate: '1990-08-31',
     geoJSON: aLine19900714,
@@ -69,7 +70,7 @@ export const lines: Line[] = [
     confirmed: true,
   },
   {
-    id: 'a-line-1990-09',
+    id: 'blue-line-1990-09',
     startDate: '1990-09-01',
     endDate: '1991-02-13',
     geoJSON: aLine199009,
@@ -79,12 +80,22 @@ export const lines: Line[] = [
     confirmed: true,
   },
   {
-    id: 'a-line-1991-02',
+    id: 'blue-line-1991-02',
     startDate: '1991-02-14',
-    endDate: '2023-06-15',
+    endDate: '2019-11-01',
     geoJSON: aLine199102,
     color: '#0288d1',
     label: 'Metro Blue Line',
+    type: 'light-rail',
+    confirmed: true,
+  },
+  {
+    id: 'a-line-2019-11-02',
+    startDate: '2019-11-02',
+    endDate: '2023-06-15',
+    geoJSON: aLine199102,
+    color: '#0288d1',
+    label: 'Metro A Line',
     type: 'light-rail',
     confirmed: true,
   },
@@ -119,7 +130,7 @@ export const lines: Line[] = [
     confirmed: true,
   },
   {
-    id: 'bd-line-1993-01-30',
+    id: 'red-line-1993-01-30',
     startDate: '1993-01-30',
     endDate: '1996-07-12',
     geoJSON: bdLine19930130,
@@ -129,7 +140,17 @@ export const lines: Line[] = [
     confirmed: true,
   },
   {
-    id: 'b-line-1999-06-12',
+    id: 'red-line-1996-07-13',
+    startDate: '1996-07-13',
+    endDate: '2005-12-31',
+    geoJSON: dLine19960713,
+    color: '#EB131B',
+    label: 'Metro Red Line',
+    type: 'heavy-rail',
+    confirmed: true,
+  },
+  {
+    id: 'red-line-1999-06-12',
     startDate: '1999-06-12',
     endDate: '2000-06-23',
     geoJSON: bLine19990612,
@@ -139,28 +160,38 @@ export const lines: Line[] = [
     confirmed: true,
   },
   {
-    id: 'b-line',
+    id: 'red-line-2000-06-24',
     startDate: '2000-06-24',
-    endDate: '',
-    geoJSON: bLine,
-    color: '#EB131B',
-    label: 'Metro B Line',
-    type: 'heavy-rail',
-    confirmed: true,
-  },
-  {
-    id: 'bd-line',
-    startDate: '1996-07-13',
-    endDate: '2005-12-31',
-    geoJSON: dLine,
+    endDate: '2019-11-01',
+    geoJSON: bLine20000624,
     color: '#EB131B',
     label: 'Metro Red Line',
     type: 'heavy-rail',
     confirmed: true,
   },
   {
-    id: 'c-line',
+    id: 'b-line-2019-11-02',
+    startDate: '2019-11-02',
+    endDate: '',
+    geoJSON: bLine20000624,
+    color: '#EB131B',
+    label: 'Metro B Line',
+    type: 'heavy-rail',
+    confirmed: true,
+  },
+  {
+    id: 'green-line-1995-08-12',
     startDate: '1995-08-12',
+    endDate: '2019-11-01',
+    geoJSON: cLine,
+    color: '#58A738',
+    label: 'Metro Green Line',
+    type: 'light-rail',
+    confirmed: true,
+  },
+  {
+    id: 'c-line-2019-11-02',
+    startDate: '2019-11-02',
     endDate: '2023-12-31',
     geoJSON: cLine,
     color: '#58A738',
@@ -179,10 +210,20 @@ export const lines: Line[] = [
     confirmed: true,
   },
   {
-    id: 'd-line',
+    id: 'purple-line-2006-01-01',
     startDate: '2006-01-01',
+    endDate: '2019-11-01',
+    geoJSON: dLine19960713,
+    color: '#A05DA5',
+    label: 'Metro Purple Line',
+    type: 'heavy-rail',
+    confirmed: true,
+  },
+  {
+    id: 'd-line-2019-11-02',
+    startDate: '2019-11-02',
     endDate: '2023-12-31',
-    geoJSON: dLine,
+    geoJSON: dLine19960713,
     color: '#A05DA5',
     label: 'Metro D Line',
     type: 'heavy-rail',
@@ -219,7 +260,7 @@ export const lines: Line[] = [
     confirmed: true,
   },
   {
-    id: 'e-line-2012-04-28',
+    id: 'expo-line-2012-04-28',
     startDate: '2012-04-28',
     endDate: '2016-05-18',
     geoJSON: eLine20120428,
@@ -229,7 +270,7 @@ export const lines: Line[] = [
     confirmed: true,
   },
   {
-    id: 'e-line-2012-06-20',
+    id: 'expo-line-2012-06-20',
     startDate: '2012-06-20',
     endDate: '2016-05-19',
     geoJSON: eLine20120620,
@@ -239,12 +280,22 @@ export const lines: Line[] = [
     confirmed: true,
   },
   {
-    id: 'e-line-2016-05-20',
+    id: 'expo-line-2016-05-20',
     startDate: '2016-05-20',
-    endDate: '2023-06-15',
+    endDate: '2019-11-01',
     geoJSON: eLine20160520,
     color: '#0097a7',
     label: 'Metro Expo Line',
+    type: 'light-rail',
+    confirmed: true,
+  },
+  {
+    id: 'e-line-2019-11-02',
+    startDate: '2019-11-02',
+    endDate: '2023-06-15',
+    geoJSON: eLine20160520,
+    color: '#0097a7',
+    label: 'Metro E Line',
     type: 'light-rail',
     confirmed: true,
   },
@@ -279,7 +330,7 @@ export const lines: Line[] = [
     confirmed: true,
   },
   {
-    id: 'l-line-2003-07-26',
+    id: 'gold-line-2003-07-26',
     startDate: '2003-07-26',
     endDate: '2009-11-14',
     geoJSON: lLine20030726,
@@ -289,7 +340,7 @@ export const lines: Line[] = [
     confirmed: true,
   },
   {
-    id: 'l-line-2009-11-15',
+    id: 'gold-line-2009-11-15',
     startDate: '2009-11-15',
     endDate: '2016-03-04',
     geoJSON: lLine20091115,
@@ -299,8 +350,18 @@ export const lines: Line[] = [
     confirmed: true,
   },
   {
-    id: 'l-line-2016-03-05',
+    id: 'gold-line-2016-03-05',
     startDate: '2016-03-05',
+    endDate: '2019-11-01',
+    geoJSON: lLine20160305,
+    color: '#f9a825',
+    label: 'Metro Gold Line',
+    type: 'light-rail',
+    confirmed: true,
+  },
+  {
+    id: 'l-line-2019-11-02',
+    startDate: '2019-11-02',
     endDate: '2023-06-15',
     geoJSON: lLine20160305,
     color: '#f9a825',
@@ -309,28 +370,38 @@ export const lines: Line[] = [
     confirmed: true,
   },
   {
-    id: 'g-line-2005-10-29',
+    id: 'orange-line-2005-10-29',
     startDate: '2005-10-29',
     endDate: '2012-06-29',
     geoJSON: gLine20051029,
     color: '#fc4c02',
-    label: 'Metro G Line',
+    label: 'Metro Orange Line',
     type: 'brt',
     confirmed: true,
   },
   {
-    id: 'g-line-2012-06-30',
+    id: 'orange-line-2012-06-30',
     startDate: '2012-06-30',
     endDate: '2017-12-31',
     geoJSON: gLine20120630,
     color: '#fc4c02',
-    label: 'Metro G Line',
+    label: 'Metro Orange Line',
     type: 'brt',
     confirmed: true,
   },
   {
-    id: 'g-line-2018',
+    id: 'orange-line-2018',
     startDate: '2018-01-01',
+    endDate: '2019-11-01',
+    geoJSON: gLine2018,
+    color: '#fc4c02',
+    label: 'Metro Orange Line',
+    type: 'brt',
+    confirmed: true,
+  },
+  {
+    id: 'g-line-2019-11-02',
+    startDate: '2019-11-02',
     endDate: '',
     geoJSON: gLine2018,
     color: '#fc4c02',
@@ -339,18 +410,28 @@ export const lines: Line[] = [
     confirmed: true,
   },
   {
-    id: 'j-line-2009-12-13',
+    id: 'silver-line-2009-12-13',
     startDate: '2009-12-13',
-    endDate: '',
+    endDate: '2015-11-30',
     geoJSON: jLine20091213,
     color: '#adB8bf',
-    label: 'Metro J Line',
+    label: 'Metro Silver Line',
     type: 'brt',
     confirmed: true,
   },
   {
-    id: 'j-line-201512',
+    id: 'silver-line-2015-12',
     startDate: '2015-12-01',
+    endDate: '2019-11-01',
+    geoJSON: jLine201512,
+    color: '#adB8bf',
+    label: 'Metro Silver Line',
+    type: 'brt',
+    confirmed: true,
+  },
+  {
+    id: 'j-line-2019-11-02',
+    startDate: '2019-11-02',
     endDate: '',
     geoJSON: jLine201512,
     color: '#adB8bf',
@@ -475,6 +556,16 @@ export const lines: Line[] = [
     geoJSON: westSantaAnaBranchTransitCorridorStudy,
     color: '#b585b7',
     label: 'West Santa Ana Branch Transit Corridor Slauson/A Line to Union Station Study',
+    type: 'light-rail',
+    confirmed: false,
+  },
+  {
+    id: 'arts-district-6th-street-station',
+    startDate: '3000-01-01',
+    endDate: '',
+    geoJSON: artsDistrict6thStreetStation,
+    color: '#EB131B',
+    label: 'Arts District / 6th Street Station Study',
     type: 'light-rail',
     confirmed: false,
   },
@@ -644,8 +735,9 @@ export const events: Event[] = [
   {
     date: '3000-01-01',
     label: 'TBD',
-    caption: 'Vermont Transit Corridor South Bay Extension, West Santa Ana Branch Transit Corridor Slauson/A Line to Union Station study',
+    caption: 'Vermont Transit Corridor South Bay Extension, West Santa Ana Branch Transit Corridor Slauson/A Line to Union Station study, Arts District / 6th Street Station study',
   },
+  
 ].sort((a, b) => {
   if (a.date < b.date) {
     return -1;
