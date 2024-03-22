@@ -5,7 +5,7 @@ const githubRepo = import.meta.env.VITE_GITHUB_REPO;
 </script>
 
 <template>
-  <header>
+  <header class="container">
     <RouterLink to="/" id="site-title">LA Metro Time Machine</RouterLink>
 
     <nav id="site-navigation">
@@ -45,7 +45,7 @@ header {
   display: grid;
   grid-template-columns: 1fr auto;
   grid-template-rows: auto auto;
-  padding-bottom: 1.5rem;
+  padding: 1.5rem;
 }
 
 #site-title {
@@ -101,6 +101,7 @@ main {
   header {
     grid-template-columns: auto 1fr auto;
     grid-template-rows: auto;
+    padding: 1.5rem 2rem;
   }
   
   #site-title {

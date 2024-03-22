@@ -135,6 +135,7 @@ onMounted(() => {
 
 <template>
   <div class="map">
+    <div class="container">
     <nav>
       <button v-on:click="setEventIndex(eventIndex - 1)">←</button>
 
@@ -162,7 +163,7 @@ onMounted(() => {
     </nav>
 
     <div class="caption">{{ events[eventIndex].caption }}</div>
-
+  </div>
     <div ref="mapContainer"></div>
   </div>
 </template>
