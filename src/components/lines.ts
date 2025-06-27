@@ -8,8 +8,8 @@ import * as bdLine19930130 from '@/geojson/bd-line-1993-01-30.json';
 import * as dLine19960713 from '@/geojson/d-line-1996-07-13.json';
 import * as bLine19990612 from '@/geojson/b-line-1999-06-12.json';
 import * as bLine20000624 from '@/geojson/b-line-2000-06-24.json';
-import * as cLine from '@/geojson/c-line.json';
-import * as cLineFuture from '@/geojson/c-line-2024.json';
+import * as cLine19950812 from '@/geojson/c-line-1995-08-12.json';
+import * as cLine20250606 from '@/geojson/c-line-2025-06-06.json';
 import * as dLine2024 from '@/geojson/d-line-2024.json';
 import * as dLine2025 from '@/geojson/d-line-2025.json';
 import * as dLine2027 from '@/geojson/d-line-2027.json';
@@ -17,7 +17,8 @@ import * as eLine20120428 from '@/geojson/e-line-2012-04-28.json';
 import * as eLine20120620 from '@/geojson/e-line-2012-06-20.json';
 import * as eLine20160520 from '@/geojson/e-line-2016-05-20.json';
 import * as eLine from '@/geojson/e-line.json';
-import * as kLine from '@/geojson/k-line-2022.json';
+import * as kLine20221007 from '@/geojson/k-line-2022-10-07.json';
+import * as kLine20241103 from '@/geojson/k-line-2024-11-03.json';
 import * as kLineFuture from '@/geojson/k-line-2024.json';
 import * as lLine20030726 from '@/geojson/l-line-2003-07-26.json';
 import * as lLine20091115 from '@/geojson/l-line-2009-11-15.json';
@@ -183,7 +184,7 @@ export const lines: Line[] = [
     id: 'green-line-1995-08-12',
     startDate: '1995-08-12',
     endDate: '2019-11-01',
-    geoJSON: cLine,
+    geoJSON: cLine19950812,
     color: '#58A738',
     label: 'Metro Green Line',
     type: 'light-rail',
@@ -192,18 +193,28 @@ export const lines: Line[] = [
   {
     id: 'c-line-2019-11-02',
     startDate: '2019-11-02',
-    endDate: '2023-12-31',
-    geoJSON: cLine,
+    endDate: '2024-11-02',
+    geoJSON: cLine19950812,
     color: '#58A738',
     label: 'Metro C Line',
     type: 'light-rail',
     confirmed: true,
   },
   {
-    id: 'c-line-future',
-    startDate: '2024-01-01',
+    id: 'c-line-2024-11-03',
+    startDate: '2024-11-03',
+    endDate: '2025-06-05',
+    geoJSON: cLine20250606,
+    color: '#58A738',
+    label: 'Metro C Line',
+    type: 'light-rail',
+    confirmed: true,
+  },
+  {
+    id: 'c-line-2025-06-06',
+    startDate: '2025-06-06',
     endDate: '',
-    geoJSON: cLineFuture,
+    geoJSON: cLine20250606,
     color: '#58A738',
     label: 'Metro C Line',
     type: 'light-rail',
@@ -310,10 +321,20 @@ export const lines: Line[] = [
     confirmed: true,
   },
   {
-    id: 'k-line',
+    id: 'k-line-2022-10-07',
     startDate: '2022-10-07',
-    endDate: '2023-12-31',
-    geoJSON: kLine,
+    endDate: '2024-11-02',
+    geoJSON: kLine20221007,
+    color: '#e56db1',
+    label: 'Metro K Line',
+    type: 'light-rail',
+    confirmed: true,
+  },
+  {
+    id: 'k-line-2024-11-03',
+    startDate: '2024-11-03',
+    endDate: '2025-06-05',
+    geoJSON: kLine20241103,
     color: '#e56db1',
     label: 'Metro K Line',
     type: 'light-rail',
@@ -321,7 +342,7 @@ export const lines: Line[] = [
   },
   {
     id: 'k-line-future',
-    startDate: '2024-01-01',
+    startDate: '2025-01-01',
     endDate: '',
     geoJSON: kLineFuture,
     color: '#e56db1',
@@ -678,9 +699,17 @@ export const events: Event[] = [
       'Regional Connector in downtown is completed, connecting the A, E, and L Lines into two routes, the north-to-south A Line and the east-to-west E Line',
   },
   {
+    date: '2024-11-03',
+    caption: 'Aviation/Century station opens, and C/K Lines begin operating along updated service patterns with the C Line rerouted north and the K Line taking over the former C Line segment to Redondo Beach'
+  },
+  {
+    date: '2025-06-06',
+    caption: 'LAX/Metro Transit Center opens, serving as the western terminus of the C Line, and finally completing the full initial route of the K Line'
+  },
+  {
     date: '2024-01-01',
     label: '2024',
-    caption: 'Purple (D Line) Extension Transit Project Section 1 from Wilshire/Western to Wilshire/La Cienega, remainder of K line opens, including a connection with the LAX People Mover as well as the former C Line segment to Redondo Beach',
+    caption: 'Purple (D Line) Extension Transit Project Section 1 from Wilshire/Western to Wilshire/La Cienega',
   },
   {
     date: '2025-01-01',
