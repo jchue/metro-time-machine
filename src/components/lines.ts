@@ -38,8 +38,8 @@ import * as sepulvedaTransitCorridor from '@/geojson/sepulveda-transit-corridor.
 import * as sepulvedaTransitCorridorPhase2 from '@/geojson/sepulveda-transit-corridor-phase-2.json';
 import * as vermontTransitCorridor from '@/geojson/vermont-transit-corridor.json';
 import * as vermontTransitCorridorSouthBayExtension from '@/geojson/vermont-transit-corridor-south-bay-extension.json';
-import * as westSantaAnaBranchTransitCorridorLPA from '@/geojson/west-santa-ana-branch-transit-corridor-lpa.json';
-import * as westSantaAnaBranchTransitCorridorStudy from '@/geojson/west-santa-ana-branch-transit-corridor-study.json';
+import * as southeastGatewayLinePh1 from '@/geojson/southeast-gateway-line-ph1.json';
+import * as southeastGatewayLinePh2 from '@/geojson/southeast-gateway-line-ph2.json';
 import * as artsDistrict6thStreetStation from '@/geojson/arts-district-6th-street-station.json';
 
 export interface Line {
@@ -561,22 +561,22 @@ export const lines: Line[] = [
     confirmed: false,
   },
   {
-    id: 'wsab-lpa',
+    id: 'southeast-gateway-line-ph1',
     startDate: '2035-01-01',
     endDate: '',
-    geoJSON: westSantaAnaBranchTransitCorridorLPA,
+    geoJSON: southeastGatewayLinePh1,
     color: '#b585b7',
-    label: 'West Santa Ana Branch Transit Corridor',
+    label: 'Southeast Gateway Line Phase 1',
     type: 'light-rail',
     confirmed: false,
   },
   {
-    id: 'wsab-study',
+    id: 'southeast-gateway-line-ph2',
     startDate: '3000-01-01',
     endDate: '',
-    geoJSON: westSantaAnaBranchTransitCorridorStudy,
+    geoJSON: southeastGatewayLinePh2,
     color: '#b585b7',
-    label: 'West Santa Ana Branch Transit Corridor Slauson/A Line to Union Station Study',
+    label: 'Southeast Gateway Line Phase 2',
     type: 'light-rail',
     confirmed: false,
   },
@@ -740,7 +740,7 @@ export const events: Event[] = [
     date: '2030-01-01',
     label: '2030',
     caption:
-      'East San Fernando Valley Light Rail Transit Project; A Line Foothill Extension Phase 2B2 from Pomona to Montclair',
+      'East San Fernando Valley Light Rail Transit Project, A Line Foothill Extension Phase 2B2 from Pomona to Montclair',
   },
   {
     date: '2030-01-02',
@@ -755,7 +755,7 @@ export const events: Event[] = [
   {
     date: '2035-01-01',
     label: '2035',
-    caption: 'Eastside Transit Corridor Phase 2, West Santa Ana Branch Transit Corridor',
+    caption: 'Eastside Transit Corridor Phase 2, Southeast Gateway Line (formerly the West Santa Ana Branch Transit Corridor) Phase 1',
   },
   {
     date: '2047-01-01',
@@ -771,7 +771,7 @@ export const events: Event[] = [
     date: '3000-01-01',
     label: 'TBD',
     caption:
-      'Vermont Transit Corridor South Bay Extension, West Santa Ana Branch Transit Corridor Slauson/A Line to Union Station study, Arts District / 6th Street Station study',
+      'Vermont Transit Corridor South Bay Extension, Southeast Gateway Line Phase 2 Slauson/A Line to Union Station study, Arts District / 6th Street Station study',
   },
 ].sort((a, b) => {
   if (a.date < b.date) {
