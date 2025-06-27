@@ -66,14 +66,16 @@ onMounted(() => {
 
       if (Array.isArray(line.geoJSON)) {
         /* If multiple files are passed, merge the features */
-        const features = line.geoJSON.map((file) => {
-          return file.features;
-        }).reduce((pre, cur) => {
-          return pre.concat(cur);
-        });
+        const features = line.geoJSON
+          .map((file) => {
+            return file.features;
+          })
+          .reduce((pre, cur) => {
+            return pre.concat(cur);
+          });
 
         data = {
-          type: "FeatureCollection",
+          type: 'FeatureCollection',
           features,
         };
       } else {
@@ -128,42 +130,42 @@ onMounted(() => {
 
   /* Get event as of current date */
   let i = events.length - 1;
-  for (i; currentDate < events[i].date; i--)
-  setEventIndex(i - 1);
+  for (i; currentDate < events[i].date; i--) setEventIndex(i - 1);
 });
 </script>
 
 <template>
   <div class="map">
     <div class="container">
-    <nav>
-      <button v-on:click="setEventIndex(eventIndex - 1)">←</button>
+      <nav>
+        <button v-on:click="setEventIndex(eventIndex - 1)">←</button>
 
-      <ul id="timeline">
-        <li
-          v-for="(event, index) in events"
-          v-bind:key="event.date"
-          v-on:click="
-            setActiveDate(event.date);
-            setEventIndex(index);
-          "
-          v-bind:class="{ active: event.date === activeDate }"
-        >
-          {{
-            event.label || new Date(event.date).toLocaleDateString('en-US', {
-              year: 'numeric',
-              month: 'long',
-              day: 'numeric',
-            })
-          }}
-        </li>
-      </ul>
+        <ul id="timeline">
+          <li
+            v-for="(event, index) in events"
+            v-bind:key="event.date"
+            v-on:click="
+              setActiveDate(event.date);
+              setEventIndex(index);
+            "
+            v-bind:class="{ active: event.date === activeDate }"
+          >
+            {{
+              event.label ||
+              new Date(`${event.date}T00:00:00-08:00`).toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+              })
+            }}
+          </li>
+        </ul>
 
-      <button v-on:click="setEventIndex(eventIndex + 1)">→</button>
-    </nav>
+        <button v-on:click="setEventIndex(eventIndex + 1)">→</button>
+      </nav>
 
-    <div class="caption">{{ events[eventIndex].caption }}</div>
-  </div>
+      <div class="caption">{{ events[eventIndex].caption }}</div>
+    </div>
     <div ref="mapContainer"></div>
   </div>
 </template>
