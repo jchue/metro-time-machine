@@ -10,8 +10,8 @@ import * as bLine19990612 from '@/geojson/b-line-1999-06-12.json';
 import * as bLine20000624 from '@/geojson/b-line-2000-06-24.json';
 import * as cLine19950812 from '@/geojson/c-line-1995-08-12.json';
 import * as cLine20250606 from '@/geojson/c-line-2025-06-06.json';
-import * as dLine2024 from '@/geojson/d-line-2024.json';
 import * as dLine2025 from '@/geojson/d-line-2025.json';
+import * as dLine2026 from '@/geojson/d-line-2026.json';
 import * as dLine2027 from '@/geojson/d-line-2027.json';
 import * as eLine20120428 from '@/geojson/e-line-2012-04-28.json';
 import * as eLine20120620 from '@/geojson/e-line-2012-06-20.json';
@@ -233,7 +233,7 @@ export const lines: Line[] = [
   {
     id: 'd-line-2019-11-02',
     startDate: '2019-11-02',
-    endDate: '2023-12-31',
+    endDate: '2025-08-31',
     geoJSON: dLine19960713,
     color: '#A05DA5',
     label: 'Metro D Line',
@@ -241,20 +241,20 @@ export const lines: Line[] = [
     confirmed: true,
   },
   {
-    id: 'd-line-2024',
-    startDate: '2024-01-01',
-    endDate: '2024-12-31',
-    geoJSON: dLine2024,
+    id: 'd-line-2025',
+    startDate: '2025-09-01',
+    endDate: '2025-12-31',
+    geoJSON: dLine2025,
     color: '#A05DA5',
     label: 'Metro D Line',
     type: 'heavy-rail',
     confirmed: true,
   },
   {
-    id: 'd-line-2025',
-    startDate: '2025-01-01',
+    id: 'd-line-2026',
+    startDate: '2026-01-01',
     endDate: '2026-12-31',
-    geoJSON: dLine2025,
+    geoJSON: dLine2026,
     color: '#A05DA5',
     label: 'Metro D Line',
     type: 'heavy-rail',
@@ -707,13 +707,13 @@ export const events: Event[] = [
     caption: 'LAX/Metro Transit Center opens, serving as the western terminus of the C Line, and finally completing the full initial route of the K Line'
   },
   {
-    date: '2024-01-01',
-    label: '2024',
+    date: '2025-09-01',
+    label: 'Fall 2025',
     caption: 'Purple (D Line) Extension Transit Project Section 1 from Wilshire/Western to Wilshire/La Cienega',
   },
   {
-    date: '2025-01-01',
-    label: '2025',
+    date: '2026-01-01',
+    label: '2026',
     caption: 'Purple (D Line) Extension Transit Project Section 2 from Wilshire/La Cienega to Century City/Constellation, Foothill Extension from Glendora to Pomona',
   },
   {
