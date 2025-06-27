@@ -1,9 +1,9 @@
 import * as aLine19900714 from '@/geojson/a-line-1990-07-14.json';
 import * as aLine199009 from '@/geojson/a-line-1990-09.json';
 import * as aLine199102 from '@/geojson/a-line-1991-02.json';
-import * as aLine from '@/geojson/a-line.json';
+import * as aLine20230616 from '@/geojson/a-line-2023-06-16.json';
 import * as aLine2025 from '@/geojson/a-line-2025.json';
-import * as aLine2028 from '@/geojson/a-line-2028.json';
+import * as aLine2030 from '@/geojson/a-line-2030.json';
 import * as bdLine19930130 from '@/geojson/bd-line-1993-01-30.json';
 import * as dLine19960713 from '@/geojson/d-line-1996-07-13.json';
 import * as bLine19990612 from '@/geojson/b-line-1999-06-12.json';
@@ -101,10 +101,10 @@ export const lines: Line[] = [
     confirmed: true,
   },
   {
-    id: 'a-line',
+    id: 'a-line-2023-06-16',
     startDate: '2023-06-16',
-    endDate: '2024-12-31',
-    geoJSON: aLine,
+    endDate: '2025-07-30',
+    geoJSON: aLine20230616,
     color: '#0072BC',
     label: 'Metro A Line',
     type: 'light-rail',
@@ -112,8 +112,8 @@ export const lines: Line[] = [
   },
   {
     id: 'a-line-2025',
-    startDate: '2025-01-01',
-    endDate: '2027-12-31',
+    startDate: '2025-08-01',
+    endDate: '2029-12-31',
     geoJSON: aLine2025,
     color: '#0072BC',
     label: 'Metro A Line',
@@ -121,10 +121,10 @@ export const lines: Line[] = [
     confirmed: true,
   },
   {
-    id: 'a-line-2028',
-    startDate: '2028-01-01',
+    id: 'a-line-2030',
+    startDate: '2030-01-01',
     endDate: '',
-    geoJSON: aLine2028,
+    geoJSON: aLine2030,
     color: '#0072BC',
     label: 'Metro A Line',
     type: 'light-rail',
@@ -542,7 +542,7 @@ export const lines: Line[] = [
   },
   {
     id: 'vermont-transit-corridor',
-    startDate: '2028-01-02',
+    startDate: '2028-01-01',
     endDate: '',
     geoJSON: vermontTransitCorridor,
     color: '#0c8649',
@@ -700,41 +700,47 @@ export const events: Event[] = [
   },
   {
     date: '2024-11-03',
-    caption: 'Aviation/Century station opens, and C/K Lines begin operating along updated service patterns with the C Line rerouted north and the K Line taking over the former C Line segment to Redondo Beach'
+    caption:
+      'Aviation/Century station opens, and C/K Lines begin operating along updated service patterns with the C Line rerouted north and the K Line taking over the former C Line segment to Redondo Beach',
   },
   {
     date: '2025-06-06',
-    caption: 'LAX/Metro Transit Center opens, serving as the western terminus of the C Line, and finally completing the full initial route of the K Line'
+    caption:
+      'LAX/Metro Transit Center opens, serving as the western terminus of the C Line, and finally completing the full initial route of the K Line',
+  },
+  {
+    date: '2025-08-01',
+    label: 'Summer 2025',
+    caption: 'A Line Foothill Extension Phase 2B1 from Glendora to Pomona',
   },
   {
     date: '2025-09-01',
     label: 'Fall 2025',
-    caption: 'Purple (D Line) Extension Transit Project Section 1 from Wilshire/Western to Wilshire/La Cienega',
+    caption:
+      'Purple (D Line) Extension Transit Project Section 1 from Wilshire/Western to Wilshire/La Cienega',
   },
   {
     date: '2026-01-01',
     label: '2026',
-    caption: 'Purple (D Line) Extension Transit Project Section 2 from Wilshire/La Cienega to Century City/Constellation, Foothill Extension from Glendora to Pomona',
+    caption:
+      'Purple (D Line) Extension Transit Project Section 2 from Wilshire/La Cienega to Century City/Constellation',
   },
   {
     date: '2027-01-01',
     label: '2027',
-    caption: 'Purple (D Line) Extension Transit Project Section 3 from Century City/Constellation to Westwood/VA Hospital, North Hollywood to Pasadena Transit Corridor',
+    caption:
+      'Purple (D Line) Extension Transit Project Section 3 from Century City/Constellation to Westwood/VA Hospital, North Hollywood to Pasadena Transit Corridor',
   },
   {
     date: '2028-01-01',
-    label: '2028',
-    caption: 'Foothill Extension from from Pomona to Montclair',
-  },
-  {
-    date: '2028-01-02',
     label: '2028-2030',
     caption: 'Vermont Transit Corridor',
   },
   {
     date: '2030-01-01',
     label: '2030',
-    caption: 'East San Fernando Valley Light Rail Transit Project',
+    caption:
+      'East San Fernando Valley Light Rail Transit Project; A Line Foothill Extension Phase 2B2 from Pomona to Montclair',
   },
   {
     date: '2030-01-02',
@@ -764,9 +770,9 @@ export const events: Event[] = [
   {
     date: '3000-01-01',
     label: 'TBD',
-    caption: 'Vermont Transit Corridor South Bay Extension, West Santa Ana Branch Transit Corridor Slauson/A Line to Union Station study, Arts District / 6th Street Station study',
+    caption:
+      'Vermont Transit Corridor South Bay Extension, West Santa Ana Branch Transit Corridor Slauson/A Line to Union Station study, Arts District / 6th Street Station study',
   },
-  
 ].sort((a, b) => {
   if (a.date < b.date) {
     return -1;
